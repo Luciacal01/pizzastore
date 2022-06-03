@@ -29,6 +29,8 @@ public class Ordine {
 	private Long id;
 	@Column(name = "data")
 	private Date data;
+	@Column(name = "codice")
+	private String codice;
 	@Column(name = "costototaleordine")
 	private int costoTotaleOrdine;
 	@Column(name = "closed")
@@ -54,8 +56,9 @@ public class Ordine {
 	public Ordine() {
 	}
 
-	public Ordine(Date data, int costoTotaleOrdine, Cliente cliente, Set<Pizza> pizze, Utente utente) {
+	public Ordine( String codice, Date data, int costoTotaleOrdine, Cliente cliente, Set<Pizza> pizze, Utente utente) {
 		super();
+		this.codice=codice;
 		this.data = data;
 		this.costoTotaleOrdine = costoTotaleOrdine;
 		this.cliente = cliente;
@@ -63,8 +66,9 @@ public class Ordine {
 		this.utente = utente;
 	}
 
-	public Ordine(Date data, int costoTotaleOrdine, boolean closed, Cliente cliente, Set<Pizza> pizze, Utente utente) {
+	public Ordine(String codice, Date data, int costoTotaleOrdine, boolean closed, Cliente cliente, Set<Pizza> pizze, Utente utente) {
 		super();
+		this.codice=codice;
 		this.data = data;
 		this.costoTotaleOrdine = costoTotaleOrdine;
 		this.closed = closed;
@@ -73,8 +77,22 @@ public class Ordine {
 		this.utente = utente;
 	}
 
+	public Ordine(String codice) {
+		this.codice=codice;
+	}
+
 	public Long getId() {
 		return id;
+	}
+	
+	
+
+	public String getCodice() {
+		return codice;
+	}
+
+	public void setCodice(String codice) {
+		this.codice = codice;
 	}
 
 	public void setId(Long id) {
