@@ -2,6 +2,7 @@ package it.prova.pizzastore.model;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -48,6 +49,14 @@ public class Utente {
 	private Set<Ruolo> ruoli = new HashSet<>(0);
 
 	public Utente() {
+	}
+	
+	public Utente(String username, String password, String nome, String cognome, Set<Ruolo> ruoli) {
+		this.username = username;
+		this.password = password;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.ruoli = ruoli;
 	}
 
 	public Utente(String username, String password) {
@@ -131,6 +140,22 @@ public class Utente {
 	public boolean isAdmin() {
 		for (Ruolo ruoloItem : ruoli) {
 			if (ruoloItem.getCodice().equals(Ruolo.ADMIN_ROLE))
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean isPizzaiolo() {
+		for (Ruolo ruoloItem : ruoli) {
+			if (ruoloItem.getCodice().equals(Ruolo.PIZZAIOLO_ROLE))
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean isFattorino() {
+		for (Ruolo ruoloItem : ruoli) {
+			if (ruoloItem.getCodice().equals(Ruolo.FATTORINO_ROLE))
 				return true;
 		}
 		return false;

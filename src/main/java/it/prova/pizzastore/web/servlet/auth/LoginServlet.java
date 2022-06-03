@@ -2,6 +2,8 @@ package it.prova.pizzastore.web.servlet.auth;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,6 +37,8 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 		
+		
+		/*
 		String destinazione=null;
 		
 		try {
@@ -44,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 				destinazione = "login.jsp";
 			}else {
 				request.setAttribute("userInfo", utenteInstance);
-				destinazione="home";
+				destinazione="HomeServlet";
 			}
 			
 		} catch (Exception e) {
@@ -54,7 +58,33 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(destinazione).forward(request, response);
+	*/
 		
+		if(loginInput.equals("admin") && passwordInput.equals("admin")) {
+			Utente res= new Utente(loginInput, passwordInput, "Admin", "User",new Date());
+			res.getRuoli().add(new Ruolo(Ruolo.ADMIN_ROLE));
+			request.getSession().setAttribute("userInfo", res);
+			request.getRequestDispatcher("/Utente/indexAdmin.jsp").forward(request, response);
+			return;
+		}
+		
+		if(loginInput.equals("pizzaiolo") && passwordInput.equals("pizzaiolo")) {
+			Utente res= new Utente(loginInput, passwordInput, "Pizzaiolo", "User",new Date());
+			res.getRuoli().add(new Ruolo(Ruolo.PIZZAIOLO_ROLE));
+			request.getSession().setAttribute("userInfo", res);
+			request.getRequestDispatcher("/Utente/indexpizzaiolo.jsp").forward(request, response);
+			return;
+		}
+		
+		if(loginInput.equals("fattorino") && passwordInput.equals("fattorino")) {
+			Utente res= new Utente(loginInput, passwordInput, "Fattorino", "User",new Date());
+			res.getRuoli().add(new Ruolo(Ruolo.FATTORINO_ROLE));
+			request.getSession().setAttribute("userInfo", res);
+			request.getRequestDispatcher("/Utente/indexfattorino.jsp").forward(request, response);
+			return;
+		}
+		
+		request.setAttribute("messaggio", "Credenziali errate");
+		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
-
 }
