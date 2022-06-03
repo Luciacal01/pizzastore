@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 import it.prova.pizzastore.model.Ruolo;
 import it.prova.pizzastore.model.StatoUtente;
@@ -22,6 +23,8 @@ import it.prova.pizzastore.service.UtenteService;
 //import it.prova.raccoltafilm.service.MyServiceFactory;
 //import it.prova.raccoltafilm.service.RuoloService;
 //import it.prova.raccoltafilm.service.UtenteService;
+
+@WebListener
 
 public class LocalEntityManagerFactoryListener implements ServletContextListener{
 	private static EntityManagerFactory entityManagerFactory;
