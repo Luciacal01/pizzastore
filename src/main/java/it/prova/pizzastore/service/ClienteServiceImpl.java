@@ -2,8 +2,12 @@ package it.prova.pizzastore.service;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
+import it.prova.pizzastore.Exception.ElementNotFoundException;
 import it.prova.pizzastore.dao.ClienteDAO;
 import it.prova.pizzastore.model.Cliente;
+import it.prova.pizzastore.web.listener.LocalEntityManagerFactoryListener;
 
 public class ClienteServiceImpl implements ClienteService {
 	
@@ -11,14 +15,35 @@ public class ClienteServiceImpl implements ClienteService {
 	
 	@Override
 	public List<Cliente> listAllElements() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			clienteDAO.setEntityManager(entityManager);
+
+			return clienteDAO.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+
 	}
 
 	@Override
 	public Cliente caricaSingoloElemento(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			clienteDAO.setEntityManager(entityManager);
+
+			return clienteDAO.findOne(id).orElse(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override
@@ -29,26 +54,89 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public void aggiorna(Cliente clienteInstance) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			entityManager.getTransaction().begin();
+
+			clienteDAO.setEntityManager(entityManager);
+
+			clienteDAO.update(clienteInstance);
+
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+
 
 	}
 
 	@Override
 	public void inserisciNuovo(Cliente clienteInstance) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			entityManager.getTransaction().begin();
+
+			clienteDAO.setEntityManager(entityManager);
+
+			clienteDAO.insert(clienteInstance);
+
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 
 	}
 
 	@Override
 	public void rimuovi(Long idClienteToRemove) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			entityManager.getTransaction().begin();
+
+			clienteDAO.setEntityManager(entityManager);
+			
+			Cliente clienteDaRimuovere= clienteDAO.findOne(idClienteToRemove).orElse(null);
+			if(clienteDaRimuovere==null) 
+				throw new ElementNotFoundException("il cliente non è stato trovato");
+
+			clienteDAO.delete(clienteDaRimuovere);
+
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 
 	}
 
 	@Override
 	public List<Cliente> findByExample(Cliente example) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			clienteDAO.setEntityManager(entityManager);
+
+			return clienteDAO.findByExample(example);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override

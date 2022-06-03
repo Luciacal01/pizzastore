@@ -12,12 +12,12 @@ public interface PizzaService {
 	
 	public Pizza caricaSingoloElementoEager(Long id) throws Exception;
 
-	public void aggiorna(Pizza filmInstance) throws Exception;
+	public void aggiorna(Pizza pizzaInstance) throws Exception;
 
-	public void inserisciNuovo(Pizza filmInstance) throws Exception;
+	public void inserisciNuovo(Pizza pizzaInstance) throws Exception;
 
 	//novità rispetto al passato: rimuoviamo per id così faccio tutto nel service e risparimio 
-	public void rimuovi(Long idFilmToRemove) throws Exception;
+	public void rimuovi(Long idPizzaToRemove) throws Exception;
 
 	public List<Pizza> findByExample(Pizza example) throws Exception;
 
