@@ -26,7 +26,7 @@
 					    <div class='card-header'>
 					        <h5>Visualizza dettaglio</h5>
 					    </div>
-					     <c:set var="clienteInPagina" value="${clienti_list_attribute }"/>
+					     <c:set var="clienteInPagina" value="${visualizza_cliente_attr }"/>
 					    
 					
 					    <div class='card-body'>
