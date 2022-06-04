@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.StringUtils;
 
 import it.prova.pizzastore.model.Ordine;
+import it.prova.pizzastore.model.StatoUtente;
 
 public class OrdineDAOImpl implements OrdineDAO {
 	
@@ -70,13 +71,23 @@ public class OrdineDAOImpl implements OrdineDAO {
 			whereClauses.add("o.codice like :codice");
 			parameterMap.put("codice", "%"+ example.getCodice()+"%");
 		}
-		if(example.getCostoTotaleOrdine()!=0) {
+		if(example.getCostoTotaleOrdine()>0) {
 			whereClauses.add("o.costoTotaleOrdine like :costo");
 			parameterMap.put("costo", "%"+example.getCostoTotaleOrdine()+"%");
 		}
 		if(example.getData()!= null) {
 			whereClauses.add("a.data=:data");
 			parameterMap.put("o.data", example.getData());
+		}
+		
+		if(example.getCliente()!=null && example.getCliente().getId()!=null && example.getCliente().getId()>0 && example.getCliente().isAttivo()) {
+			whereClauses.add("o.cliente_id=:cliente_id");
+			parameterMap.put("cliente_id", example.getCliente().getId());
+		}
+		
+		if(example.getUtente() != null && example.getUtente().getId()!=null && example.getUtente().getId()>0 && example.getUtente().getStato()== StatoUtente.ATTIVO) {
+			whereClauses.add("o.utente_id=:utente_id");
+			parameterMap.put("utente_id", example.getUtente().getId());
 		}
 		
 		queryBuilder.append(!whereClauses.isEmpty()?" and ":"");
