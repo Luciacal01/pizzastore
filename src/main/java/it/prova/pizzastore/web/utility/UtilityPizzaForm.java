@@ -33,9 +33,10 @@ public class UtilityPizzaForm {
 		return true;
 	}
 	
-	public static Cliente createClienteFromParams(String nomeParams, String cognomeParams, String indirizzoParams) {
+	public static Cliente createClienteFromParams(String nomeParams, String cognomeParams, String indirizzoParams, boolean attivoParam) {
 		Cliente result = new Cliente(nomeParams, cognomeParams);
 		result.setIndirizzo(indirizzoParams);
+		result.setAttivo(attivoParam);
 		return result;
 	}
 	

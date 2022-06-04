@@ -20,11 +20,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown07">
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/home">Home</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareSearchPizzaServlet">Ricerca Pizza</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareInsertPizzaServlet">Inserisci Pizza</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareSearchOrdineServlet">Ricerca Ordine</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareInsertOrdineServlet">Inserisci Ordine</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/HomeServlet">Home</a></li>
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ExecuteListClienteServlet">Ricerca Cliente</a></li>
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareInsertClienteServlet">Inserisci Cliente</a></li>
             </ul> 

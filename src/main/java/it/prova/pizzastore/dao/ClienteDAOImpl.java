@@ -19,7 +19,7 @@ public class ClienteDAOImpl implements ClienteDAO {
 	
 	@Override
 	public List<Cliente> list() throws Exception {
-		return entityManager.createNamedQuery(" From Cliente", Cliente.class).getResultList();
+		return entityManager.createQuery("from Cliente", Cliente.class).getResultList();
 	}
 
 	@Override

@@ -21,20 +21,16 @@ public class ExecuteListClienteServlet extends HttpServlet {
 			String operationResult = request.getParameter("operationResult");
 			if (StringUtils.isNotBlank(operationResult) && operationResult.equalsIgnoreCase("SUCCESS"))
 				request.setAttribute("successMessage", "Operazione effettuata con successo");
-			if (StringUtils.isNotBlank(operationResult) && operationResult.equalsIgnoreCase("ERROR"))
-				request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
-			if (StringUtils.isNotBlank(operationResult) && operationResult.equalsIgnoreCase("NOT_FOUND"))
-				request.setAttribute("errorMessage", "Elemento non trovato.");
 			
 			request.setAttribute("clienti_list_attribute", MyServiceFactory.getClienteServiceInstance().listAllElements());
 		}catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "attenzione si è verificato un errore");
-			request.getRequestDispatcher("HomeServlet").forward(request, response);
+			request.getRequestDispatcher("/HomeServlet").forward(request, response);
 			return;
 		}
 		
-		request.getRequestDispatcher("/Utente/list.jsp").forward(request, response);
+		request.getRequestDispatcher("/Cliente/list.jsp").forward(request, response);
 	}
 
 }

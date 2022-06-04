@@ -40,7 +40,7 @@
 				        <h5>Lista dei risultati</h5> 
 				    </div>
 				    <div class='card-body'>
-				    	<a class="btn btn-primary " href="PrepareInsertFilmServlet">Add New</a>
+				    	<a class="btn btn-primary " href="PrepareInsertClienteServlet">Add New</a>
 				    
 				        <div class='table-responsive'>
 				            <table class='table table-striped ' >
@@ -59,7 +59,7 @@
 											<td>${clientiItem.nome }</td>
 											<td>${clientiItem.cognome }</td>
 											<td>${clientiItem.indirizzo } </td>
-											<td>${clientiItem.attico }</td>
+											<td>${clientiItem.attivo }</td>
 											<td>
 												<a class="btn  btn-sm btn-outline-secondary" href="ExecuteListClienteServlet?idCliente=${clientiItem.id }">Visualizza</a>
 												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="laservletpermodificare">Edit</a>

@@ -19,11 +19,11 @@ public class HomeServlet extends HttpServlet {
 		Utente utenteInstance= (Utente) request.getSession().getAttribute("userInfo");
 		
 		if (utenteInstance.isAdmin()) {
-			request.getRequestDispatcher("/utente/indexAdmin.jsp").forward(request, response);
+			request.getRequestDispatcher("/Utente/indexAdmin.jsp").forward(request, response);
 		} else if (utenteInstance.isPizzaiolo()) {
-			request.getRequestDispatcher("/utente/indexPizzaiolo.jsp").forward(request, response);
+			request.getRequestDispatcher("/Utente/indexPizzaiolo.jsp").forward(request, response);
 		} else if (utenteInstance.isFattorino()) {
-			request.getRequestDispatcher("/utente/indexFattorino.jsp").forward(request, response);
+			request.getRequestDispatcher("/Utente/indexFattorino.jsp").forward(request, response);
 		}
 	}
 	
@@ -33,11 +33,11 @@ public class HomeServlet extends HttpServlet {
 		Utente utenteInstance = (Utente) request.getSession().getAttribute("userInfo");
 
 		if (utenteInstance.isAdmin()) {
-			request.getRequestDispatcher("/utente/indexAdmin.jsp").forward(request, response);
+			request.getRequestDispatcher("/Utente/indexAdmin.jsp").forward(request, response);
 		} else if (utenteInstance.isPizzaiolo()) {
-			request.getRequestDispatcher("/utente/indexPizzaiolo.jsp").forward(request, response);
+			request.getRequestDispatcher("/Utente/indexPizzaiolo.jsp").forward(request, response);
 		} else if (utenteInstance.isFattorino()) {
-			request.getRequestDispatcher("/utente/indexFattorino.jsp").forward(request, response);
+			request.getRequestDispatcher("/Utente/indexFattorino.jsp").forward(request, response);
 		}
 
 	}
