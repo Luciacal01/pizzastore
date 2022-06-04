@@ -7,35 +7,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ExecuteSearchClienteServlet
- */
+import it.prova.pizzastore.model.Cliente;
+import it.prova.pizzastore.service.MyServiceFactory;
+import it.prova.pizzastore.web.utility.UtilityPizzaForm;
+
 @WebServlet("/ExecuteSearchClienteServlet")
 public class ExecuteSearchClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ExecuteSearchClienteServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String nomeParam = request.getParameter("nome");
+		String cognomeParam = request.getParameter("cognome");
+		String indirizzoParam = request.getParameter("indirizzo");
+		String attivoParam = request.getParameter("attivo");
+
+		Cliente clienteInstance = UtilityPizzaForm.createClienteFromParams(nomeParam, cognomeParam, indirizzoParam,
+				Boolean.parseBoolean(attivoParam));
+
+		try {
+			request.setAttribute("clienti_list_attribute",
+					MyServiceFactory.getClienteServiceInstance().findByExample(clienteInstance));
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
+			request.getRequestDispatcher("/Utente/indexAdmin.jsp").forward(request, response);
+			return;
+		}
+
+		request.getRequestDispatcher("/Cliente/list.jsp").forward(request, response);
 	}
 
 }
