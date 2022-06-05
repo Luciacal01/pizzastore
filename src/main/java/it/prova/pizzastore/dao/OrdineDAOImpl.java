@@ -106,4 +106,9 @@ public class OrdineDAOImpl implements OrdineDAO {
 		
 	}
 
+	@Override
+	public Optional<Ordine> findOneEager(Long id) throws Exception {
+		return entityManager.createQuery("from Ordine o left join fetch o.cliente left join fetch o.utente left join fetch o.pizze where o.id=:idOrdine", Ordine.class).setParameter("idOrdine", id).getResultList().stream().findFirst();
+	}
+
 }
