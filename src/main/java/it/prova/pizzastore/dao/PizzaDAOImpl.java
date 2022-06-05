@@ -49,7 +49,10 @@ public class PizzaDAOImpl implements PizzaDAO {
 		if(input== null) {
 			throw new Exception("Problema valore in input");
 		}
-		entityManager.remove(entityManager.merge(input));
+
+
+		input.setAttivo(false);
+		entityManager.merge(input);
 
 	}
 
