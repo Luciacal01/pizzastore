@@ -65,6 +65,12 @@ public class Pizza {
 		this.attivo = attivo;
 	}
 
+	public Pizza(String descrizione, String ingredienti, boolean attivo) {
+		this.descrizione = descrizione;
+		this.ingredienti = ingredienti;
+		this.attivo = attivo;
+	}
+
 	public Long getId() {
 		return id;
 	}

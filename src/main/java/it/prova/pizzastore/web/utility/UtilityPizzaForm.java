@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import it.prova.pizzastore.model.Cliente;
 import it.prova.pizzastore.model.Ordine;
@@ -24,6 +25,14 @@ public class UtilityPizzaForm {
 	
 	public static Pizza createPizzaFromParams(String descrizioneParams, String ingredientiParams, Integer prezzoBaseParam, boolean attivoParam) {
 		Pizza result= new Pizza(descrizioneParams, ingredientiParams, prezzoBaseParam, attivoParam);
+		return result;
+	}
+	
+	public static Pizza createPizzaFromParams(String descrizioneParams, String ingredientiParams, String prezzoBaseParam, boolean attivoParam) {
+		Pizza result= new Pizza(descrizioneParams, ingredientiParams, attivoParam);
+		if(NumberUtils.isCreatable(prezzoBaseParam)) {
+			result.setPrezzoBase(Integer.parseInt(prezzoBaseParam));
+		}
 		return result;
 	}
 	
