@@ -1,4 +1,4 @@
-package it.prova.pizzastore.web.servlet.ordine;
+package it.prova.pizzastore.web.servlet.pizza;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

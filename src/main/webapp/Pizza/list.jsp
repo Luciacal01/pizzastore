@@ -4,7 +4,6 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
-html lang="it" class="h-100" >
 	 <head>
 	 
 	 	<!-- Common imports in pages -->
@@ -16,7 +15,7 @@ html lang="it" class="h-100" >
 	<body class="d-flex flex-column h-100">
 	 
 		<!-- Fixed navbar -->
-		<jsp:include page="/Utente/navbaradmin.jsp"></jsp:include>
+		<jsp:include page="/Utente/navbarpizzaiolo.jsp"></jsp:include>
 	 
 	
 		<!-- Begin page content -->
@@ -57,7 +56,7 @@ html lang="it" class="h-100" >
 										<tr>
 											<td>${pizzaItem.descrizione }</td>
 											<td>${pizzaItem.ingredienti }</td>
-											<td>${pizzaItem.prezzobase } </td>
+											<td>${pizzaItem.prezzoBase } </td>
 											<td>${pizzaItem.attivo }</td>
 											<td>
 												<a class="btn  btn-sm btn-outline-secondary" href="ExecuteVisualizzaClienteServlet?idCliente=${clientiItem.id }">Visualizza</a>

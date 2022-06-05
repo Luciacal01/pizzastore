@@ -22,8 +22,8 @@ public class UtilityPizzaForm {
 		return true;
 	}
 	
-	public static Pizza createPizzaFromParams(String descrizioneParams, String ingredientiParams, Integer prezzoBaseParam) {
-		Pizza result= new Pizza(descrizioneParams, ingredientiParams, prezzoBaseParam);
+	public static Pizza createPizzaFromParams(String descrizioneParams, String ingredientiParams, Integer prezzoBaseParam, boolean attivoParam) {
+		Pizza result= new Pizza(descrizioneParams, ingredientiParams, prezzoBaseParam, attivoParam);
 		return result;
 	}
 	
