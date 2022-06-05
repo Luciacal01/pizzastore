@@ -2,6 +2,8 @@ package it.prova.pizzastore.web.utility;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -9,6 +11,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 import it.prova.pizzastore.model.Cliente;
 import it.prova.pizzastore.model.Ordine;
 import it.prova.pizzastore.model.Pizza;
+import it.prova.pizzastore.model.Utente;
+import it.prova.pizzastore.service.MyServiceFactory;
 
 public class UtilityPizzaForm {
 	public static Ordine createOrdineFromParams(String codiceParams, Date dateParams) {
@@ -64,5 +68,34 @@ public class UtilityPizzaForm {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	public static Ordine createOrdineFromParams(String clienteParam, String[] pizzeParam, String dataParam,
+			String codiceParam, String utenteParam) throws Exception, Exception {
+		Ordine result = new Ordine(codiceParam);
+		if (NumberUtils.isCreatable(clienteParam)) {
+			Cliente cliente = new Cliente();
+			cliente.setId(Long.parseLong(clienteParam));
+			result.setCliente(cliente);
+		}
+		Set<Pizza> elencoPizze = new HashSet<Pizza>();
+		if (pizzeParam == null || pizzeParam.length == 0) {
+			result.setPizze(null);
+		} else {
+			for (String pizzaItem : pizzeParam) {
+				if (NumberUtils.isCreatable(pizzaItem)) {
+					elencoPizze.add(MyServiceFactory.getPizzaServiceInstance()
+							.caricaSingoloElemento(Long.parseLong(pizzaItem)));
+				}
+			}
+		}
+		result.setPizze(elencoPizze);
+		result.setData(parseDateArrivoToString(dataParam));
+		if (NumberUtils.isCreatable(utenteParam)) {
+			Utente utente = new Utente();
+			utente.setId(Long.parseLong(utenteParam));
+			result.setUtente(utente);
+		}
+		return result;
 	}
 }

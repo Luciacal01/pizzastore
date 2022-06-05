@@ -52,7 +52,8 @@ public class OrdineDAOImpl implements OrdineDAO {
 		if(input== null) {
 			throw new Exception("Problema valore in input");
 		}
-		entityManager.remove(entityManager.merge(input));
+		input.setClosed(true);
+		entityManager.merge(input);
 	}
 
 	@Override
@@ -90,6 +91,12 @@ public class OrdineDAOImpl implements OrdineDAO {
 			parameterMap.put("utente_id", example.getUtente().getId());
 		}
 		
+		if(example.isClosed()) {
+			whereClauses.add("o.closed=true");
+		}else {
+			whereClauses.add("o.closed=false");
+		}
+		
 		queryBuilder.append(!whereClauses.isEmpty()?" and ":"");
 		queryBuilder.append(StringUtils.join(whereClauses, " and "));
 		TypedQuery<Ordine> typedQuery= entityManager.createNamedQuery(queryBuilder.toString(), Ordine.class);
@@ -102,7 +109,9 @@ public class OrdineDAOImpl implements OrdineDAO {
 	}
 	
 	public int price(Ordine ordineInstance) throws Exception{
-		return 0;
+		return  entityManager
+				.createQuery("select distinct sum(p.prezzoBase) from Ordine o join o.pizze p where o.id = :id", Long.class)
+				.setParameter("id", ordineInstance.getId()).getFirstResult();
 		
 	}
 

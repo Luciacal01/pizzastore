@@ -22,6 +22,8 @@ public interface UtenteService {
 	public Utente findByUsernameAndPassword(String username, String password) throws Exception;
 	
 	public Utente accedi(String username, String password) throws Exception;
+	
+	public List<Utente> listAllFattorini() throws Exception;
 
 	//per injection
 	public void setUtenteDAO(UtenteDAO utenteDAO);

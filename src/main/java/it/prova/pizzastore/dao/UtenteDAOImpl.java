@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import it.prova.pizzastore.model.Ordine;
+import it.prova.pizzastore.model.Ruolo;
+import it.prova.pizzastore.model.StatoUtente;
 import it.prova.pizzastore.model.Utente;
 
 public class UtenteDAOImpl implements UtenteDAO {
@@ -53,8 +56,35 @@ public class UtenteDAOImpl implements UtenteDAO {
 
 	}
 	
-	public List<Utente> findByExample(Utente example) throws Exception{
-		return null;
+	public List<Utente> findByRuolo(Ruolo ruoloInstance) throws Exception{
+		TypedQuery<Utente> results= entityManager.createQuery("select u FROM Utente u join u.ruoli r where r = :ruolo", Utente.class);
+		results.setParameter("ruolo", ruoloInstance);
+		return results.getResultList();
+	}
+
+	@Override
+	public Optional<Utente> findByUsernameAndPassword(String username, String password) throws Exception {
+		TypedQuery<Utente> results= entityManager.createQuery("select u FROM Utente u where u.username = :username and u.password=:password ", Utente.class);
+		results.setParameter("username", username);
+		results.setParameter("password", password);
+		return results.getResultStream().findFirst();
+	}
+
+	@Override
+	public Optional<Utente> login(String username, String password) throws Exception {
+		TypedQuery<Utente> results= entityManager.createQuery("select u FROM Utente u join fetch u.ruoli r where u.username = :username and u.password=:password and u.stato=:statoUtente", Utente.class);
+		results.setParameter("username", username);
+		results.setParameter("password", password);
+		results.setParameter("statoUtente", StatoUtente.ATTIVO);
+		return results.getResultStream().findFirst();
+	}
+
+	@Override
+	public List<Utente> listFattorini() throws Exception {
+		return entityManager
+				.createQuery("select u FROM Utente u join fetch u.ruoli r where r.descrizione = 'Fattorino User'",
+						Utente.class)
+				.getResultList();
 	}
 
 }

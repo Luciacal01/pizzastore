@@ -20,6 +20,8 @@ public interface OrdineService {
 	public void rimuovi(Long idOrdineToRemove) throws Exception;
 
 	public List<Ordine> findByExample(Ordine example) throws Exception;
+	
+	public void calcolaPrezzoTotaleOrdine(Ordine ordineInstance) throws Exception;
 
 	// per injection
 	public void setOrdineDAO(OrdineDAO ordineDAO);

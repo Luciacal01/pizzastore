@@ -150,5 +150,30 @@ public class OrdineServiceImpl implements OrdineService {
 		this.ordineDAO=ordineDAO;
 
 	}
+	
+	public void calcolaPrezzoTotaleOrdine(Ordine ordineInstance) throws Exception{
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			entityManager.getTransaction().begin();
+
+			ordineDAO.setEntityManager(entityManager);
+			
+			int somma= ordineDAO.price(ordineInstance);
+			
+			ordineInstance.setCostoTotaleOrdine(somma);
+			
+			ordineDAO.update(ordineInstance);
+			
+
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
 
 }
