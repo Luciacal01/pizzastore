@@ -24,8 +24,8 @@ public class PrepareInsertOrdineServlet extends HttpServlet {
 			request.setAttribute("pizze_list_attribute",
 					MyServiceFactory.getPizzaServiceInstance().listAllElements());
 			
-			request.setAttribute("fattorini_list_attribute",
-					MyServiceFactory.getUtenteServiceInstance().listAllFattorini());
+			//request.setAttribute("fattorini_list_attribute",
+					//MyServiceFactory.getUtenteServiceInstance().listAllFattorini());
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
@@ -37,3 +37,14 @@ public class PrepareInsertOrdineServlet extends HttpServlet {
 	}
 
 }
+/*
+<div class="col-md-6"> 
+<label for="utente.id">Fattorino <span class="text-danger">*</span></label>
+<select class="form-select" id="utente.id" name="utente.id">
+	<option value="" selected> -- Selezionare una voce -- </option>
+  	<c:forEach items="${fattorini_list_attribute }" var="utenteItem">
+  		<option value="${utenteItem.id}" ${insert_ordine_attr.utente.id == utenteItem.id?'selected':''} >${utenteItem.nome } ${utenteItem.cognome }</option>
+  	</c:forEach>
+</select>
+</div>
+*/

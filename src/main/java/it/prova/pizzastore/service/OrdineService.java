@@ -22,6 +22,8 @@ public interface OrdineService {
 	public List<Ordine> findByExample(Ordine example) throws Exception;
 	
 	public void calcolaPrezzoTotaleOrdine(Ordine ordineInstance) throws Exception;
+	
+	public List<Ordine> listAllOrdiniAttiviFattorino(Long idFattorino) throws Exception;
 
 	// per injection
 	public void setOrdineDAO(OrdineDAO ordineDAO);

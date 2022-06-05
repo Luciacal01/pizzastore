@@ -11,5 +11,8 @@ public interface OrdineDAO extends IBaseDAO<Ordine> {
 	public Optional<Ordine> findOneEager(Long id) throws Exception;
 	
 	public int price(Ordine ordineInstance) throws Exception;
+	
+	public List<Ordine> listOrdiniByFattorino(Long idFattorino) throws Exception;
+	
 
 }

@@ -175,5 +175,20 @@ public class OrdineServiceImpl implements OrdineService {
 			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
 		}
 	}
+	
+	public List<Ordine> listAllOrdiniAttiviFattorino(Long idFattorino) throws Exception{
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
+		try {
+			ordineDAO.setEntityManager(entityManager);
+
+			return ordineDAO.listOrdiniByFattorino(idFattorino);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
 }

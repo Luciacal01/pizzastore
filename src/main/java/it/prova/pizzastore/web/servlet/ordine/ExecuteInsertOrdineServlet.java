@@ -37,10 +37,10 @@ public class ExecuteInsertOrdineServlet extends HttpServlet {
 				request.setAttribute("pizze_list_attribute",
 						MyServiceFactory.getPizzaServiceInstance().listAllElements());
 
-				request.setAttribute("fattorini_list_attribute",
-						MyServiceFactory.getUtenteServiceInstance().listAllFattorini());
+				//request.setAttribute("fattorini_list_attribute",
+						//MyServiceFactory.getUtenteServiceInstance().listAllFattorini());
 				request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
-				request.getRequestDispatcher("/ordine/insert.jsp").forward(request, response);
+				request.getRequestDispatcher("/Ordine/insert.jsp").forward(request, response);
 				return;
 			}
 
@@ -57,7 +57,7 @@ public class ExecuteInsertOrdineServlet extends HttpServlet {
 			return;
 		}
 
-		response.sendRedirect("ExecuteListOrdineServlet?operationResult=SUCCESS");
+		response.sendRedirect("ExecuteListOrdiniServlet?operationResult=SUCCESS");
 	}
 
 }

@@ -120,4 +120,11 @@ public class OrdineDAOImpl implements OrdineDAO {
 		return entityManager.createQuery("from Ordine o left join fetch o.cliente left join fetch o.utente left join fetch o.pizze where o.id=:idOrdine", Ordine.class).setParameter("idOrdine", id).getResultList().stream().findFirst();
 	}
 
+	@Override
+	public List<Ordine> listOrdiniByFattorino(Long idFattorino) throws Exception {
+		return entityManager
+				.createQuery("select o FROM Ordine o where o.closed = 'false' and o.utente.id = :idUtente", Ordine.class)
+				.setParameter("idUtente", idFattorino).getResultList();
+	}
+
 }
