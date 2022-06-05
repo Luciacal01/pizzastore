@@ -60,7 +60,7 @@
 											<td>${ordineItem.closed }</td>
 											<td>
 												<a class="btn  btn-sm btn-outline-secondary" href="ExecuteVisualizzaOrdiniAttiviServlet?idOrdine=${ordineItem.id }">Visualizza</a>
-												<a class="btn btn-outline-danger btn-sm" href="PrepareDeleteOrdineAttivoServlet?idOrdine=${ordineItem.id }">Delete</a>
+												<a class="btn btn-outline-danger btn-sm" href="PrepareDeleteOrdiniAttiviServlet?idOrdine=${ordineItem.id }">Chiudi</a>
 											</td>
 										</tr>
 									</c:forEach>
