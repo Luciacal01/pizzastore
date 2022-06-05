@@ -27,33 +27,31 @@ public class ExecuteInsertOrdineServlet extends HttpServlet {
 
 		try {
 
-			ordineInstance = UtilityPizzaForm.createOrdineFromParams(clienteParam, pizzeParam, dataParam, codiceParam,
-					utenteParam);
+			ordineInstance = UtilityPizzaForm.createOrdineFromParams(clienteParam, dataParam, codiceParam, utenteParam);
 			if (!UtilityPizzaForm.validateOrdineBean(ordineInstance)) {
 				request.setAttribute("insert_ordine_attr", ordineInstance);
-				request.setAttribute("clienti_list_attribute",
-						MyServiceFactory.getClienteServiceInstance().listAllElements());
+				request.setAttribute("clienti_list_attribute", MyServiceFactory.getClienteServiceInstance().listAllElements());
 
-				request.setAttribute("pizze_list_attribute",
-						MyServiceFactory.getPizzaServiceInstance().listAllElements());
+				request.setAttribute("pizza_list_attribute", MyServiceFactory.getPizzaServiceInstance().listAllElements());
 
-				//request.setAttribute("fattorini_list_attribute",
-						//MyServiceFactory.getUtenteServiceInstance().listAllFattorini());
+				request.setAttribute("fattorini_list_attribute",MyServiceFactory.getUtenteServiceInstance().listAllFattorini());
 				request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
 				request.getRequestDispatcher("/Ordine/insert.jsp").forward(request, response);
 				return;
 			}
 
-			OrdineService ordineServiceInstance = MyServiceFactory.getOrdineServiceInstance();
-
-			ordineServiceInstance.calcolaPrezzoTotaleOrdine(ordineInstance);
-
 			MyServiceFactory.getOrdineServiceInstance().inserisciNuovo(ordineInstance);
+			UtilityPizzaForm.setPizzeAdOrdine(ordineInstance, pizzeParam);
+			MyServiceFactory.getOrdineServiceInstance().aggiorna(ordineInstance);
+			Integer costo= MyServiceFactory.getOrdineServiceInstance().calcolaPrezzoTotaleOrdine(ordineInstance);
+			ordineInstance.setCostoTotaleOrdine(Integer.parseInt(costo.toString()));
+			MyServiceFactory.getOrdineServiceInstance().aggiorna(ordineInstance);
+			request.setAttribute("sommaTotale", costo);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
-			request.getRequestDispatcher("/HomeServlet").forward(request, response);
+			request.getRequestDispatcher("/Ordine/insert.jsp").forward(request, response);
 			return;
 		}
 

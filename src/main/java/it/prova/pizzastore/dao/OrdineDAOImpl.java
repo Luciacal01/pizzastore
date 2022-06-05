@@ -108,7 +108,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 		return typedQuery.getResultList();
 	}
 	
-	public int price(Ordine ordineInstance) throws Exception{
+	public Integer price(Ordine ordineInstance) throws Exception{
 		return  entityManager
 				.createQuery("select distinct sum(p.prezzoBase) from Ordine o join o.pizze p where o.id = :id", Long.class)
 				.setParameter("id", ordineInstance.getId()).getFirstResult();
@@ -116,8 +116,10 @@ public class OrdineDAOImpl implements OrdineDAO {
 	}
 
 	@Override
-	public Optional<Ordine> findOneEager(Long id) throws Exception {
-		return entityManager.createQuery("from Ordine o left join fetch o.cliente left join fetch o.utente left join fetch o.pizze where o.id=:idOrdine", Ordine.class).setParameter("idOrdine", id).getResultList().stream().findFirst();
+	public Ordine findOneEager(Long id) throws Exception {
+		TypedQuery<Ordine> query= entityManager.createQuery("select o from Ordine o left join fetch o.cliente left join fetch o.utente left join fetch o.pizze where o.id = :idOrdine", Ordine.class);
+		query.setParameter("idOrdine", id);
+		return query.getResultStream().findFirst().orElse(null);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package it.prova.pizzastore.web.utility;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,9 +16,20 @@ import it.prova.pizzastore.model.Utente;
 import it.prova.pizzastore.service.MyServiceFactory;
 
 public class UtilityPizzaForm {
-	public static Ordine createOrdineFromParams(String codiceParams, Date dateParams) {
-		Ordine result= new Ordine(codiceParams);
-		result.setData(dateParams);
+	public static Ordine createOrdineFromParams(String codiceParam, String dataParam, String clienteParam, String utenteParam) {
+		Ordine result = new Ordine(codiceParam);
+		result.setData(parseDateArrivoToString(dataParam));
+
+		if (NumberUtils.isCreatable(clienteParam)) {
+			Cliente cliente = new Cliente();
+			cliente.setId(Long.parseLong(clienteParam));
+			result.setCliente(cliente);
+		}
+		if (NumberUtils.isCreatable(utenteParam)) {
+			Utente utente = new Utente();
+			utente.setId(Long.parseLong(utenteParam));
+			result.setUtente(utente);
+		}
 		return result;
 	}
 	
@@ -38,6 +50,24 @@ public class UtilityPizzaForm {
 			result.setPrezzoBase(Integer.parseInt(prezzoBaseParam));
 		}
 		return result;
+	}
+	
+	public static Ordine setPizzeAdOrdine(Ordine ordineInstance, String[] idPizze) throws Exception {
+		new ArrayList<Pizza>();
+
+		if (idPizze == null || idPizze.length == 0) {
+			ordineInstance.setPizze(null);
+		} else {
+			for (String idPizza : idPizze) {
+				if (NumberUtils.isCreatable(idPizza)) {
+					Pizza pizzaItem = MyServiceFactory.getPizzaServiceInstance()
+							.caricaSingoloElemento(Long.parseLong(idPizza));
+
+					MyServiceFactory.getOrdineServiceInstance().aggiungiPizza(ordineInstance, pizzaItem);
+				}
+			}
+		}
+		return ordineInstance;
 	}
 	
 	public static boolean validatePizzaBean(Pizza pizzaToBeValidate) {
@@ -96,6 +126,38 @@ public class UtilityPizzaForm {
 			utente.setId(Long.parseLong(utenteParam));
 			result.setUtente(utente);
 		}
+		return result;
+	}
+	
+	public static Ordine createOrdineFromParams(String clienteParam, String[] pizzeParam,
+			String dataParam, String codiceParam, String utenteParam, boolean closedParam)
+			throws NumberFormatException, Exception {
+
+		Ordine result = new Ordine(codiceParam);
+		if (NumberUtils.isCreatable(clienteParam)) {
+			Cliente cliente = new Cliente();
+			cliente.setId(Long.parseLong(clienteParam));
+			result.setCliente(cliente);
+		}
+		Set<Pizza> elencoPizze = new HashSet<Pizza>();
+		if (pizzeParam == null || pizzeParam.length == 0) {
+			result.setPizze(null);
+		} else {
+			for (String pizzaItem : pizzeParam) {
+				if (NumberUtils.isCreatable(pizzaItem)) {
+					elencoPizze.add(MyServiceFactory.getPizzaServiceInstance()
+							.caricaSingoloElemento(Long.parseLong(pizzaItem)));
+				}
+			}
+		}
+		result.setPizze(elencoPizze);
+		result.setData(parseDateArrivoToString(dataParam));
+		if (NumberUtils.isCreatable(utenteParam)) {
+			Utente utente = new Utente();
+			utente.setId(Long.parseLong(utenteParam));
+			result.setUtente(utente);
+		}
+		result.setClosed(closedParam);
 		return result;
 	}
 }
