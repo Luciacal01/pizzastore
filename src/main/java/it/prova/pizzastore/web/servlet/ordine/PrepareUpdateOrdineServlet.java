@@ -7,35 +7,43 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class PrepareUpdateOrdineServlet
- */
+import org.apache.commons.lang3.math.NumberUtils;
+
+import it.prova.pizzastore.service.MyServiceFactory;
+
 @WebServlet("/PrepareUpdateOrdineServlet")
 public class PrepareUpdateOrdineServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PrepareUpdateOrdineServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String idOrdineParam = request.getParameter("idOrdine");
+
+		if (!NumberUtils.isCreatable(idOrdineParam)) {
+			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
+			request.getRequestDispatcher("/Utente/indexpizzaiolo.jsp").forward(request, response);
+			return;
+		}
+
+		try {
+			request.setAttribute("clienti_list_attribute",
+					MyServiceFactory.getClienteServiceInstance().listAllElements());
+
+			request.setAttribute("pizza_list_attribute", MyServiceFactory.getPizzaServiceInstance().listAllElements());
+
+			request.setAttribute("fattorini_list_attribute",
+					MyServiceFactory.getUtenteServiceInstance().listAllFattorini());
+
+			request.setAttribute("update_ordine_attr", MyServiceFactory.getOrdineServiceInstance()
+					.caricaSingoloElementoEager(Long.parseLong(idOrdineParam)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
+			request.getRequestDispatcher("/Utente/indexpizzaiolo.jsp").forward(request, response);
+			return;
+		}
+
+		request.getRequestDispatcher("/Ordine/edit.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
 
 }
