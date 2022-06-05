@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@page import="it.prova.pizzastore.model.Pizza"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it" class="h-100" >
 	 <head>
 	 
@@ -39,38 +37,42 @@
 				        <h5>Lista dei risultati</h5> 
 				    </div>
 				    <div class='card-body'>
-				    	<a class="btn btn-primary " href="PrepareInsertPizzaServlet">Add New</a>
+				    	<a class="btn btn-primary " href="PrepareInsertOrdineServlet">Add New</a>
 				    
 				        <div class='table-responsive'>
 				            <table class='table table-striped ' >
 				                <thead>
 				                    <tr>
-			                         	<th>Descrizione</th>
-				                        <th>Ingredienti</th>
-				                        <th>Prezzobase</th>
-				                        <th>Attivo</th>
+				                        <th>Data</th>
+				                        <th>Codice</th>
+				                        <th>Costo Totale</th>
+				                        <th>Closed</th>
 				                        <th>Azioni</th>
 				                    </tr>
 				                </thead>
 				                <tbody>
-				                	<c:forEach items="${pizza_list_attribute }" var="pizzaItem">
+				                
+				                
+				                	<c:forEach  var="ordineItem" items="${ordini_list_attribute }">
 										<tr>
-											<td>${pizzaItem.descrizione }</td>
-											<td>${pizzaItem.ingredienti }</td>
-											<td>${pizzaItem.prezzoBase } </td>
-											<td>${pizzaItem.attivo }</td>
+											<td><fmt:formatDate type = "date" value = "${ordineItem.data }" /></td>
+											<td><c:out value="${ordineItem.codice }"/></td>
+				                        	<td><c:out value="${ordineItem.costoTotaleOrdine }"/></td>
+				                        	<td><c:out value="${ordineItem.closed }"/></td>
 											<td>
-												<a class="btn  btn-sm btn-outline-secondary" href="ExecuteVisualizzaPizzaServlet?idPizza=${pizzaItem.id }">Visualizza</a>
-												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="PrepareUpdatePizzaServlet?idPizza=${pizzaItem.id }">Edit</a>
-												<a class="btn btn-outline-danger btn-sm" href="PrepareDeletePizzaServlet?idPizza=${pizzaItem.id }">Delete</a>
+												<a class="btn  btn-sm btn-outline-secondary" href="ExecuteVisualizzaOrdineServlet?idOrdine=${ordineItem.id }">Visualizza</a>
+												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="PrepareUpdateOrdineServlet?idCOrdine=${ordineItem.id }">Edit</a>
+												<a class="btn btn-outline-danger btn-sm" href="PrepareDeleteOrdineServlet?idOrdine=${ordineItem.id }">Delete</a>
 											</td>
 										</tr>
 									</c:forEach>
 				                </tbody>
+				                
 				            </table>
-				            	 <a href="HomeServlet" class='btn btn-outline-secondary' style='width:150px'>
-					            	<i class='fa fa-chevron-left'></i> Torna alla home
-					        		</a>
+				            
+						    <a href="HomeServlet" class='btn btn-outline-secondary' style='width:150px'>
+					            <i class='fa fa-chevron-left'></i> Torna alla home
+					        </a>
 				        </div>
 				   
 					<!-- end card-body -->			   
@@ -86,5 +88,6 @@
 		
 		<!-- Footer -->
 		<jsp:include page="../footer.jsp" />
-</body>
+		
+	</body>
 </html>

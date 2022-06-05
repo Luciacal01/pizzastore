@@ -6,5 +6,7 @@ import it.prova.pizzastore.model.Ordine;
 
 public interface OrdineDAO extends IBaseDAO<Ordine> {
 	public List<Ordine> findByExample(Ordine example) throws Exception;
+	
+	public int price(Ordine ordineInstance) throws Exception;
 
 }

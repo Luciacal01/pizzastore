@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.prova.pizzastore.dao.ClienteDAO;
 import it.prova.pizzastore.model.Cliente;
+import it.prova.pizzastore.model.Ordine;
 
 public interface ClienteService {
 	public List<Cliente> listAllElements() throws Exception;
@@ -20,6 +21,8 @@ public interface ClienteService {
 	public void rimuovi(Long idClienteToRemove) throws Exception;
 
 	public List<Cliente> findByExample(Cliente example) throws Exception;
+	
+	public int calcolaPrezzoOrdine(Ordine ordineInstance) throws Exception;
 
 	// per injection
 	public void setClienteDAO(ClienteDAO clienteDAO);

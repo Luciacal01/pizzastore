@@ -100,5 +100,10 @@ public class OrdineDAOImpl implements OrdineDAO {
 
 		return typedQuery.getResultList();
 	}
+	
+	public int price(Ordine ordineInstance) throws Exception{
+		return 0;
+		
+	}
 
 }

@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import it.prova.pizzastore.Exception.ElementNotFoundException;
 import it.prova.pizzastore.dao.ClienteDAO;
 import it.prova.pizzastore.model.Cliente;
+import it.prova.pizzastore.model.Ordine;
 import it.prova.pizzastore.web.listener.LocalEntityManagerFactoryListener;
 
 public class ClienteServiceImpl implements ClienteService {
@@ -143,6 +144,10 @@ public class ClienteServiceImpl implements ClienteService {
 	public void setClienteDAO(ClienteDAO clienteDAO) {
 		this.clienteDAO= clienteDAO;
 
+	}
+	
+	public int calcolaPrezzoOrdine(Ordine ordineInstance) throws Exception{
+		return 0;
 	}
 
 }

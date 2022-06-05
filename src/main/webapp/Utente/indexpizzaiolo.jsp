@@ -56,7 +56,7 @@
 				        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. </p>
 				        
 				        <a class="btn btn-primary btn-lg" href="ExecuteListPizzaServlet">Vai alla lista Pizze</a>
-				        <a class="btn btn-primary btn-lg" href="PrepareSearchPizzaServlet">Vai a Ricerca Pizze</a>
+				        <a class="btn btn-primary btn-lg" href="ExecuteListOrdiniServlet">Vai alla lista ordini</a>
 				      </div>
 			    </div>
 			    
